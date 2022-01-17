@@ -29,8 +29,26 @@ input {
     border-radius: 20px
 }
 
+.container .cards .delete{
+    background-color: #325288;
+    outline: none;
+    border: none;
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+    margin-right: 120px;
+    margin-bottom: 0;
+}
+
+
+.container .cards .delete i  {
+    color: red;
+    font-size: 20px;
+
+}
+
 .container .cards h1 {
-    margin-top: 50px;
+    margin-top: 20px;
     margin-bottom: 0;
 }
 .container .cards h4 {

@@ -1,26 +1,58 @@
 const titleInput = document.querySelector('#title');
 const authorInput = document.querySelector('#author');
 const pageNumInput = document.querySelector('#page-num');
-const addButton = document.querySelector('#add');
 const container = document.querySelector('.container');
 
 let myLibrary = []
 
-function Book(title, author, pages, readed ) {
+function Book(title, author, pages, readed, id ) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.readed = readed;
+    this.id = id
+}
+
+
+function deleteBookToLibrary() {
+    const deleteButton = document.querySelectorAll('.delete')
+    const idNum = document.querySelectorAll('.id-num')
+    deleteButton.forEach(button => {
+        button.addEventListener( 'click', function(e){
+            console.log(e);
+        })
+    });
 }
 
 function addBookToLibrary() {
+    const addButton = document.querySelector('#add');
+    let counter = 0;
     addButton.addEventListener('click', () => {
-        let newBook = new Book(titleInput.value, authorInput.value, pageNumInput.value, false);
+        let newBook = new Book(titleInput.value, authorInput.value, pageNumInput.value, false, counter);
         myLibrary.push(newBook);
-
+        counter++
         //card div
         const card = document.createElement('div')
         card.classList.add('cards')
+
+        //delete button
+        const deleteButton = document.createElement('button')
+        deleteButton.classList.add('delete')
+        deleteButton.setAttribute('onclick', 'deleteBookToLibrary()');
+        deleteButton.onclick = function () {deleteBookToLibrary();}
+        card.appendChild(deleteButton);
+        
+        // icon
+        const icon = document.createElement('i')
+        icon.classList.add('fa', 'fa-trash')
+        deleteButton.appendChild(icon)
+        
+        //id num 
+        const idNumber = document.createElement('div')
+        // id-num
+        icon.classList.add('id-num')
+        idNumber.innerHTML = counter
+        card.appendChild(idNumber);
         
         // h1 title
         const h1Title = document.createElement('h1')
@@ -47,7 +79,9 @@ function addBookToLibrary() {
 
         container.appendChild(card)
         
-    })       
+    })
 }
+
+
 
 addBookToLibrary()
