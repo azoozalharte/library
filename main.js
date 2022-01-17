@@ -14,19 +14,18 @@ function Book(title, author, pages, readed, id ) {
 }
 
 
-function deleteBookToLibrary() {
+function deleteBookfromLibrary(id) {
     const deleteButton = document.querySelectorAll('.delete')
-    const idNum = document.querySelectorAll('.id-num')
     deleteButton.forEach(button => {
         button.addEventListener( 'click', function(e){
-            console.log(e);
+            console.log(id);
         })
     });
 }
 
 function addBookToLibrary() {
     const addButton = document.querySelector('#add');
-    let counter = 0;
+    let counter = 1;
     addButton.addEventListener('click', () => {
         let newBook = new Book(titleInput.value, authorInput.value, pageNumInput.value, false, counter);
         myLibrary.push(newBook);
@@ -38,8 +37,8 @@ function addBookToLibrary() {
         //delete button
         const deleteButton = document.createElement('button')
         deleteButton.classList.add('delete')
-        deleteButton.setAttribute('onclick', 'deleteBookToLibrary()');
-        deleteButton.onclick = function () {deleteBookToLibrary();}
+        // deleteButton.setAttribute('onclick', 'deleteBookToLibrary()');
+        deleteButton.onclick = function () {deleteBookfromLibrary(newBook.id);}
         card.appendChild(deleteButton);
         
         // icon
@@ -49,9 +48,8 @@ function addBookToLibrary() {
         
         //id num 
         const idNumber = document.createElement('div')
-        // id-num
         icon.classList.add('id-num')
-        idNumber.innerHTML = counter
+        idNumber.innerHTML = newBook.id
         card.appendChild(idNumber);
         
         // h1 title
