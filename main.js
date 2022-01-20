@@ -12,22 +12,7 @@ class Book {
 // UI Class: Handle UI tasks
 class UI {
     static displayBooks() {
-        const StoredBooks = [
-            {
-                title: 'The end',
-                author: 'Azooz Alharte',
-                pages: 234,
-                isbn: '81273'
-            },
-            {
-                title: 'The end 2',
-                author: 'Jeb Alharte',
-                pages: 134,
-                isbn: '812sd73'
-            }
-        ]
-
-        const books = StoredBooks;
+        const books = Store.getBooks();
         books.forEach(book => UI.addBookToList(book));
     }
 
@@ -62,6 +47,39 @@ class UI {
 }
 //Store Class : Handles storage 
 
+class Store {
+    static getBooks() {
+        let books;
+        if (localStorage.getItem('books') == null) {
+            books = []            
+        }else {
+            books = JSON.parse(localStorage.getItem('books'))
+        }
+
+        return books
+    }
+    static addBook(book) {
+        const books = Store.getBooks()
+
+        books.push(book)
+
+        localStorage.setItem('books', JSON.stringify(books))
+
+    }
+    static removeBook(isbn) {
+        const books = Store.getBooks()
+
+        books.forEach((book, index) => {
+            if (book.isbn == isbn) {
+                books.splice(index, 1)
+            }
+        });
+        localStorage.setItem('books', JSON.stringify(books))
+        
+    }
+    
+}
+
 // Event display book
 document.addEventListener('DOMContentLoaded', UI.displayBooks)
 //Event Add Book
@@ -81,6 +99,9 @@ document.querySelector('#book-form').addEventListener('submit', e => {
     // Add book to UI
     UI.addBookToList(book);
 
+    // Add book to store
+    Store.addBook(book)
+
     //clear fields
     UI.clearFields();
 })
@@ -89,4 +110,7 @@ document.querySelector('#book-form').addEventListener('submit', e => {
 
 document.querySelector('#book-list').addEventListener('click', e => {
     UI.deleteBook(e.target)
+
+    //remove from Store
+    Store.removeBook(e.target.parentElement.previousElementSibling.textContent)
 })
