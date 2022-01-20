@@ -17,6 +17,11 @@ class UI {
     }
 
     static addBookToList(book) {
+        const title = document.querySelector("#title").value
+        const author = document.querySelector("#author").value
+        const pages = document.querySelector("#pages").value
+        const isbn = document.querySelector("#isbn").valu
+
         const list = document.querySelector('#book-list')
 
         const row = document.createElement('tr')
@@ -82,6 +87,7 @@ class Store {
 
 // Event display book
 document.addEventListener('DOMContentLoaded', UI.displayBooks)
+
 //Event Add Book
 document.querySelector('#book-form').addEventListener('submit', e => {
     //prevent actual submit
@@ -93,17 +99,24 @@ document.querySelector('#book-form').addEventListener('submit', e => {
     const pages = document.querySelector("#pages").value
     const isbn = document.querySelector("#isbn").value
 
-    //Instatiate book
-    const book = new Book(title, author, pages, isbn)
 
-    // Add book to UI
-    UI.addBookToList(book);
+    if (title === '' || author === '' || pages === '' || isbn === '') {
+        alert('Please fill all fields')
+    } else {
+        
+        //Instatiate book
+        const book = new Book(title, author, pages, isbn)
+    
+        // Add book to UI
+        UI.addBookToList(book);
+    
+        // Add book to store
+        Store.addBook(book)
+    
+        //clear fields
+        UI.clearFields();
+    }
 
-    // Add book to store
-    Store.addBook(book)
-
-    //clear fields
-    UI.clearFields();
 })
 
 //Event Remove Book
