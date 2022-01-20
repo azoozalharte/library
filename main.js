@@ -46,6 +46,12 @@ class UI {
         list.appendChild(row)
     }
 
+    static deleteBook(target) {
+        if (target.classList.contains('delete')) {
+            target.parentElement.parentElement.remove();   
+        }
+    }
+
     static clearFields() {
         document.querySelector("#title").value = ''
         document.querySelector("#author").value = ''
@@ -80,3 +86,7 @@ document.querySelector('#book-form').addEventListener('submit', e => {
 })
 
 //Event Remove Book
+
+document.querySelector('#book-list').addEventListener('click', e => {
+    UI.deleteBook(e.target)
+})
