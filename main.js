@@ -50,7 +50,7 @@ class UI {
 //Store Class : Handles storage 
 
 // Event display book
-
+document.addEventListener('DOMContentLoaded', UI.displayBooks)
 //Event Add Book
 
 //Event Remove Book
